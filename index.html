@@ -1,0 +1,1790 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Основы алгоритмизации и программирования — Лекция 1</title>
+
+<style>
+    :root {
+        --text: #1f2937;
+        --muted: #64748b;
+        --blue: #2563eb;
+        --blue-light: #eff6ff;
+        --green: #15803d;
+        --green-light: #f0fdf4;
+        --yellow: #a16207;
+        --yellow-light: #fefce8;
+        --purple: #7e22ce;
+        --purple-light: #faf5ff;
+        --border: #cbd5e1;
+        --bg: #f8fafc;
+        --card: #ffffff;
+        --dark: #0f172a;
+        --red: #b91c1c;
+        --red-light: #fef2f2;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+        font-size: 20px;
+        line-height: 1.6;
+    }
+
+    .container {
+        width: min(1400px, 94%);
+        margin: 0 auto;
+    }
+
+    header {
+        background: linear-gradient(135deg, #0f172a, #1e3a8a);
+        color: white;
+        padding: 55px 0 50px;
+        margin-bottom: 35px;
+    }
+
+    header h1 {
+        font-size: clamp(40px, 5vw, 64px);
+        line-height: 1.1;
+        margin: 0 0 18px;
+    }
+
+    header p {
+        font-size: 24px;
+        max-width: 1000px;
+        margin: 0;
+        opacity: 0.92;
+    }
+
+    .toc {
+        background: var(--card);
+        border: 2px solid var(--border);
+        border-radius: 20px;
+        padding: 30px 34px;
+        margin-bottom: 45px;
+        box-shadow: 0 8px 25px rgba(15, 23, 42, 0.06);
+    }
+
+    .toc h2 {
+        font-size: 34px;
+        margin-top: 0;
+    }
+
+    .toc ol {
+        margin: 0;
+        padding-left: 30px;
+    }
+
+    .toc li {
+        margin: 11px 0;
+        font-size: 22px;
+    }
+
+    .toc a {
+        color: #1d4ed8;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .toc a:hover {
+        text-decoration: underline;
+    }
+
+    section {
+        margin: 0 0 65px;
+        scroll-margin-top: 20px;
+    }
+
+    .section-title {
+        font-size: clamp(32px, 4vw, 46px);
+        line-height: 1.15;
+        margin: 0 0 25px;
+        color: var(--dark);
+    }
+
+    .intro {
+        background: #e2e8f0;
+        border-left: 7px solid #475569;
+        border-radius: 14px;
+        padding: 22px 25px;
+        margin: 20px 0 28px;
+        font-size: 21px;
+    }
+
+    .note,
+    .example,
+    .important,
+    .self-check,
+    .definition,
+    .warning {
+        border-radius: 15px;
+        padding: 23px 26px;
+        margin: 25px 0;
+    }
+
+    .definition {
+        background: var(--blue-light);
+        border: 3px solid var(--blue);
+    }
+
+    .example {
+        background: var(--green-light);
+        border: 3px solid var(--green);
+    }
+
+    .important {
+        background: var(--yellow-light);
+        border: 3px solid #eab308;
+    }
+
+    .self-check {
+        background: var(--purple-light);
+        border: 3px solid var(--purple);
+    }
+
+    .warning {
+        background: var(--red-light);
+        border: 3px solid var(--red);
+    }
+
+    .box-title {
+        font-size: 25px;
+        font-weight: 800;
+        margin-bottom: 10px;
+    }
+
+    .definition .box-title {
+        color: #1d4ed8;
+    }
+
+    .example .box-title {
+        color: #15803d;
+    }
+
+    .important .box-title {
+        color: #a16207;
+    }
+
+    .self-check .box-title {
+        color: #7e22ce;
+    }
+
+    .warning .box-title {
+        color: #b91c1c;
+    }
+
+    .subhead {
+        font-size: 29px;
+        margin: 32px 0 12px;
+        color: #0f172a;
+    }
+
+    p {
+        margin: 10px 0 18px;
+    }
+
+    ul,
+    ol {
+        padding-left: 30px;
+    }
+
+    li {
+        margin: 8px 0;
+    }
+
+    strong {
+        font-weight: 750;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 25px 0 30px;
+        background: white;
+        border: 2px solid #94a3b8;
+        border-radius: 12px;
+        overflow: hidden;
+        font-size: 19px;
+    }
+
+    th,
+    td {
+        border: 1.5px solid #94a3b8;
+        padding: 14px 16px;
+        text-align: left;
+        vertical-align: top;
+    }
+
+    th {
+        background: #e2e8f0;
+        font-size: 20px;
+    }
+
+    tr:nth-child(even) td {
+        background: #f8fafc;
+    }
+
+    .compact td,
+    .compact th {
+        padding: 11px 13px;
+    }
+
+    code {
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+        font-size: 0.95em;
+    }
+
+    pre {
+        background: #111827;
+        color: #f9fafb;
+        padding: 22px;
+        border-radius: 15px;
+        overflow-x: auto;
+        border: 2px solid #334155;
+        font-size: 20px;
+        line-height: 1.55;
+        margin: 22px 0;
+    }
+
+    .kw {
+        color: #c4b5fd;
+    }
+
+    .str {
+        color: #86efac;
+    }
+
+    .num {
+        color: #fcd34d;
+    }
+
+    .com {
+        color: #94a3b8;
+    }
+
+    .scheme {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        margin: 30px 0;
+    }
+
+    .step {
+        position: relative;
+        background: white;
+        border: 3px solid #334155;
+        border-radius: 16px;
+        padding: 22px 25px;
+        min-height: 90px;
+        box-shadow: 0 5px 14px rgba(15, 23, 42, 0.05);
+    }
+
+    .step-number {
+        display: inline-flex;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        align-items: center;
+        justify-content: center;
+        background: #1e3a8a;
+        color: white;
+        font-weight: 800;
+        margin-right: 10px;
+        font-size: 20px;
+    }
+
+    .arrow {
+        text-align: center;
+        font-size: 42px;
+        line-height: 1;
+        color: #475569;
+        padding: 8px 0;
+    }
+
+    .horizontal-scheme {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 12px;
+        align-items: stretch;
+        margin: 30px 0;
+    }
+
+    .h-step {
+        background: white;
+        border: 3px solid #334155;
+        border-radius: 16px;
+        padding: 18px;
+        text-align: center;
+        font-weight: 700;
+        position: relative;
+    }
+
+    .h-step:not(:last-child)::after {
+        content: "→";
+        position: absolute;
+        right: -24px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 30px;
+        color: #475569;
+        z-index: 2;
+    }
+
+    .tag {
+        display: inline-block;
+        padding: 5px 11px;
+        border-radius: 999px;
+        background: #dbeafe;
+        color: #1d4ed8;
+        font-size: 17px;
+        font-weight: 700;
+        margin: 2px 3px;
+    }
+
+    .footer-summary {
+        background: #0f172a;
+        color: white;
+        padding: 35px;
+        border-radius: 20px;
+        margin-bottom: 50px;
+    }
+
+    .footer-summary h2 {
+        color: white;
+    }
+
+    .dictionary-item {
+        padding: 13px 17px;
+        border-bottom: 1px solid #cbd5e1;
+        background: white;
+    }
+
+    .dictionary-item:last-child {
+        border-bottom: none;
+    }
+
+    .term {
+        font-weight: 800;
+        color: #1e3a8a;
+    }
+
+    .back-top {
+        display: inline-block;
+        margin-top: 15px;
+        text-decoration: none;
+        color: #1d4ed8;
+        font-weight: 700;
+    }
+
+    .mini-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        margin: 25px 0;
+    }
+
+    .card {
+        background: white;
+        border: 2px solid var(--border);
+        border-radius: 15px;
+        padding: 21px;
+    }
+
+    .card h4 {
+        margin-top: 0;
+        font-size: 24px;
+    }
+
+    .screen-break {
+        height: 1px;
+        margin: 50px 0;
+        border-top: 3px dashed #cbd5e1;
+    }
+
+    .small {
+        font-size: 18px;
+        color: var(--muted);
+    }
+
+    @media (max-width: 1000px) {
+        .horizontal-scheme {
+            grid-template-columns: 1fr;
+        }
+
+        .h-step:not(:last-child)::after {
+            content: "↓";
+            right: 50%;
+            top: auto;
+            bottom: -31px;
+            transform: translateX(50%);
+        }
+
+        .mini-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 700px) {
+        body {
+            font-size: 18px;
+        }
+
+        header p {
+            font-size: 20px;
+        }
+
+        .toc li {
+            font-size: 19px;
+        }
+
+        table {
+            font-size: 17px;
+        }
+
+        th,
+        td {
+            padding: 10px;
+        }
+    }
+
+    @media print {
+        body {
+            background: white;
+        }
+
+        header {
+            background: #0f172a;
+            print-color-adjust: exact;
+            -webkit-print-color-adjust: exact;
+        }
+
+        .toc a {
+            color: black;
+        }
+
+        section {
+            break-inside: avoid;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<header id="top">
+    <div class="container">
+        <h1>💻 Основы алгоритмизации и программирования</h1>
+        <p>
+            Лекция 1. Языки программирования, среды разработки,
+            компиляторы и интерпретаторы, жизненный цикл программы
+            и типы данных.
+        </p>
+    </div>
+</header>
+
+<main class="container">
+
+    <!-- ОГЛАВЛЕНИЕ -->
+    <nav class="toc">
+        <h2>📚 Оглавление</h2>
+        <ol>
+            <li><a href="#topic1">Языки программирования. История и поколения</a></li>
+            <li><a href="#topic2">Обзор языков, области применения и стандарты</a></li>
+            <li><a href="#topic3">Среда проектирования — IDE</a></li>
+            <li><a href="#topic4">Компиляторы и интерпретаторы</a></li>
+            <li><a href="#topic5">Жизненный цикл программы и программный продукт</a></li>
+            <li><a href="#topic6">Основные этапы решения задач на компьютере</a></li>
+            <li><a href="#topic7">Типы данных: простые, производные, структурированные</a></li>
+            <li><a href="#summary">Краткое резюме лекции</a></li>
+            <li><a href="#dictionary">Словарь терминов</a></li>
+        </ol>
+    </nav>
+
+    <!-- ========================================================= -->
+    <!-- ТЕМА 1 -->
+    <!-- ========================================================= -->
+
+    <section id="topic1">
+        <h2 class="section-title">1. 🗣️ Языки программирования. Развитие языков программирования</h2>
+
+        <div class="intro">
+            Представьте, что вы хотите объяснить роботу, как приготовить чай.
+            Человеку достаточно сказать: «Сделай чай». Компьютеру нужно сообщить
+            практически каждое действие в понятной для него форме.
+            <strong>Язык программирования — это язык, на котором человек записывает
+            инструкции для компьютера.</strong>
+        </div>
+
+        <div class="definition">
+            <div class="box-title">📝 ЗАПИШИТЕ В ТЕТРАДЬ</div>
+            <p>
+                <strong>Язык программирования</strong> — это формальный язык,
+                предназначенный для записи алгоритмов и программ,
+                которые может выполнять компьютер.
+            </p>
+        </div>
+
+        <h3 class="subhead">Что означает слово «формальный»?</h3>
+        <p>
+            Формальный — значит строго определённый.
+            У языка есть правила написания команд, слов и конструкций.
+        </p>
+
+        <p>
+            Например, в разговорной речи можно сказать:
+            <em>«Посчитай сумму двух чисел».</em>
+            Программе такую мысль нужно записать в правилах конкретного языка.
+        </p>
+
+        <pre><span class="com"># Python</span>
+a = <span class="num">10</span>
+b = <span class="num">20</span>
+summa = a + b
+print(summa)</pre>
+
+        <h3 class="subhead">Почему языков программирования так много?</h3>
+        <p>
+            Потому что разные задачи требуют разных инструментов.
+            Нельзя одним языком одинаково удобно писать операционную систему,
+            веб-сайт, мобильное приложение и программу для анализа данных.
+        </p>
+
+        <div class="important">
+            <div class="box-title">💡 ВАЖНО</div>
+            <p>
+                Язык программирования — это <strong>инструмент</strong>.
+                Хороший программист не обязан знать все языки.
+                Важно понимать принципы программирования и уметь выбирать
+                подходящий инструмент под задачу.
+            </p>
+        </div>
+
+        <h3 class="subhead">Короткая история развития</h3>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Период</th>
+                <th>Что происходило</th>
+                <th>Примеры</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><strong>1-е поколение</strong></td>
+                <td>Машинные коды: команды записываются непосредственно в виде двоичных инструкций.</td>
+                <td>Машинный язык</td>
+            </tr>
+            <tr>
+                <td><strong>2-е поколение</strong></td>
+                <td>Появляется ассемблер. Вместо числовых кодов используются условные обозначения команд.</td>
+                <td>Assembly</td>
+            </tr>
+            <tr>
+                <td><strong>3-е поколение</strong></td>
+                <td>Появляются языки высокого уровня. Программы становятся ближе к человеческому мышлению.</td>
+                <td>Fortran, Pascal, C, C++, Java, Python</td>
+            </tr>
+            <tr>
+                <td><strong>4-е поколение</strong></td>
+                <td>Языки и средства, ориентированные на решение конкретных задач и работу с данными.</td>
+                <td>SQL, MATLAB, специализированные 4GL</td>
+            </tr>
+            <tr>
+                <td><strong>5-е поколение</strong></td>
+                <td>Попытки описывать задачу преимущественно через правила, ограничения и логическое описание.</td>
+                <td>Prolog и другие логические подходы</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="important">
+            <div class="box-title">⚠️ ВАЖНО ПРО «ПОКОЛЕНИЯ»</div>
+            <p>
+                Деление языков на поколения — это историческая классификация.
+                В современных курсах её используют прежде всего для понимания
+                того, как развивались способы общения человека с компьютером.
+            </p>
+        </div>
+
+        <h3 class="subhead">От машинных кодов к языкам высокого уровня</h3>
+
+        <div class="mini-grid">
+            <div class="card">
+                <h4>Машинный язык</h4>
+                <p>
+                    Компьютеру очень понятен, человеку — крайне неудобен.
+                    Инструкции представлены в форме, близкой к машинным кодам.
+                </p>
+            </div>
+
+            <div class="card">
+                <h4>Язык высокого уровня</h4>
+                <p>
+                    Человеку значительно проще читать и писать.
+                    Примеры: Python, C++, Pascal.
+                </p>
+            </div>
+        </div>
+
+        <div class="example">
+            <div class="box-title">🌱 ПРИМЕР ИЗ ЖИЗНИ</div>
+            <p>
+                Представьте переводчика. Один человек говорит по-русски,
+                другой понимает только английский. Чтобы они договорились,
+                нужен переводчик.
+            </p>
+            <p>
+                Похожая идея существует между человеком и компьютером:
+                программист пишет программу на языке программирования,
+                а специальные средства переводят или выполняют эти инструкции.
+            </p>
+        </div>
+
+        <div class="self-check">
+            <div class="box-title">✍️ ПРОВЕРЬТЕ СЕБЯ</div>
+            <ol>
+                <li>Почему язык программирования называют формальным языком?</li>
+                <li>Чем язык высокого уровня удобнее машинного языка для человека?</li>
+            </ol>
+        </div>
+
+        <a class="back-top" href="#top">↑ Вернуться к оглавлению</a>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- ТЕМА 2 -->
+    <!-- ========================================================= -->
+
+    <section id="topic2">
+        <h2 class="section-title">2. 🌐 Обзор языков программирования. Области применения. Стандарты</h2>
+
+        <div class="intro">
+            Нож нужен не для всего сразу: им можно резать хлеб, но им неудобно
+            забивать гвозди. Точно так же разные языки программирования лучше
+            подходят для разных задач.
+        </div>
+
+        <div class="definition">
+            <div class="box-title">📝 ЗАПИШИТЕ В ТЕТРАДЬ</div>
+            <p>
+                <strong>Область применения языка программирования</strong> —
+                это класс задач, для которых данный язык используется наиболее удобно
+                и эффективно.
+            </p>
+        </div>
+
+        <h3 class="subhead">Какие языки стоит знать хотя бы на базовом уровне?</h3>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Язык</th>
+                <th>Главные особенности</th>
+                <th>Где применяется</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><strong>Python</strong></td>
+                <td>Простой синтаксис, большое количество библиотек.</td>
+                <td>Автоматизация, анализ данных, ИИ, веб-разработка, обучение.</td>
+            </tr>
+            <tr>
+                <td><strong>C++</strong></td>
+                <td>Высокая производительность, большой контроль над ресурсами.</td>
+                <td>Игры, системное ПО, высокопроизводительные приложения.</td>
+            </tr>
+            <tr>
+                <td><strong>Pascal</strong></td>
+                <td>Простой и структурированный синтаксис.</td>
+                <td>Обучение программированию, учебные задачи, исторически — прикладные программы.</td>
+            </tr>
+            <tr>
+                <td><strong>Java</strong></td>
+                <td>Объектно-ориентированный язык, переносимость.</td>
+                <td>Корпоративные системы, серверные приложения, Android-разработка.</td>
+            </tr>
+            <tr>
+                <td><strong>JavaScript</strong></td>
+                <td>Основной язык программирования в веб-браузерах.</td>
+                <td>Интерактивные веб-страницы и веб-приложения.</td>
+            </tr>
+            <tr>
+                <td><strong>C#</strong></td>
+                <td>Современный язык экосистемы .NET.</td>
+                <td>Веб-разработка, настольные приложения, игры, корпоративные системы.</td>
+            </tr>
+        </tbody>
+        </table>
+
+        <div class="important">
+            <div class="box-title">💡 ЯЗЫК НЕ РАВЕН ПРОГРАММИРОВАНИЮ</div>
+            <p>
+                Знать синтаксис языка недостаточно.
+                Программирование включает алгоритмы, структуры данных,
+                проектирование, тестирование и отладку.
+            </p>
+        </div>
+
+        <h3 class="subhead">Что такое стандарт языка?</h3>
+
+        <div class="definition">
+            <div class="box-title">📝 ЗАПИШИТЕ В ТЕТРАДЬ</div>
+            <p>
+                <strong>Стандарт языка программирования</strong> —
+                это официально установленное описание правил языка,
+                его конструкций и их поведения.
+            </p>
+        </div>
+
+        <p>
+            Стандарт помогает разработчикам программ и создателям компиляторов
+            понимать язык одинаково.
+        </p>
+
+        <h3 class="subhead">Стандарт и конкретная программа — не одно и то же</h3>
+
+        <p>
+            Например, стандарт определяет, какие конструкции должен поддерживать язык.
+            А конкретный компилятор или интерпретатор реализует эти правила
+            в реальной программе.
+        </p>
+
+        <div class="mini-grid">
+            <div class="card">
+                <h4>Язык</h4>
+                <p>
+                    Набор правил: как писать программу и что означают конструкции.
+                </p>
+            </div>
+            <div class="card">
+                <h4>Реализация языка</h4>
+                <p>
+                    Конкретный инструмент, который позволяет запускать программы:
+                    компилятор, интерпретатор или другая среда выполнения.
+                </p>
+            </div>
+        </div>
+
+        <div class="example">
+            <div class="box-title">🌱 ПРИМЕР ИЗ ЖИЗНИ</div>
+            <p>
+                Представьте правила дорожного движения.
+                Они определяют, что означает красный свет, знак STOP,
+                пешеходный переход и т. д.
+            </p>
+            <p>
+                Конкретный автомобиль может отличаться маркой и моделью,
+                но правила движения остаются общими.
+                Стандарт языка работает примерно так же:
+                правила языка одни, а реализации могут быть разными.
+            </p>
+        </div>
+
+        <div class="self-check">
+            <div class="box-title">✍️ ПРОВЕРЬТЕ СЕБЯ</div>
+            <ol>
+                <li>Для каких задач особенно часто используют Python?</li>
+                <li>Зачем языку программирования нужен стандарт?</li>
+            </ol>
+        </div>
+
+        <a class="back-top" href="#top">↑ Вернуться к оглавлению</a>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- ТЕМА 3 -->
+    <!-- ========================================================= -->
+
+    <section id="topic3">
+        <h2 class="section-title">3. 🛠️ Среда проектирования — IDE</h2>
+
+        <div class="intro">
+            Представьте мастерскую. В ней есть стол, инструменты, освещение,
+            ящики для материалов и место для сборки.
+            <strong>IDE — это цифровая мастерская программиста.</strong>
+        </div>
+
+        <div class="definition">
+            <div class="box-title">📝 ЗАПИШИТЕ В ТЕТРАДЬ</div>
+            <p>
+                <strong>IDE (Integrated Development Environment)</strong> —
+                интегрированная среда разработки, то есть программа,
+                объединяющая инструменты для создания, запуска, тестирования
+                и отладки программ.
+            </p>
+        </div>
+
+        <h3 class="subhead">Что обычно входит в IDE?</h3>
+
+        <table class="compact">
+            <thead>
+                <tr>
+                    <th>Инструмент</th>
+                    <th>Зачем нужен</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Редактор кода</strong></td>
+                    <td>Писать и изменять программу.</td>
+                </tr>
+                <tr>
+                    <td><strong>Подсветка синтаксиса</strong></td>
+                    <td>Разделять команды, строки, числа и другие элементы разными визуальными признаками.</td>
+                </tr>
+                <tr>
+                    <td><strong>Автодополнение</strong></td>
+                    <td>Подсказывать названия команд и конструкций.</td>
+                </tr>
+                <tr>
+                    <td><strong>Отладчик</strong></td>
+                    <td>Искать ошибки и пошагово выполнять программу.</td>
+                </tr>
+                <tr>
+                    <td><strong>Терминал</strong></td>
+                    <td>Выполнять команды операционной системы и запускать программы.</td>
+                </tr>
+                <tr>
+                    <td><strong>Система сборки</strong></td>
+                    <td>Автоматизировать компиляцию и другие действия с проектом.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3 class="subhead">Примеры IDE и редакторов</h3>
+
+        <div class="mini-grid">
+            <div class="card">
+                <h4>Visual Studio</h4>
+                <p>Мощная среда разработки, особенно популярная для C# и C++.</p>
+            </div>
+
+            <div class="card">
+                <h4>PyCharm</h4>
+                <p>IDE, ориентированная прежде всего на разработку на Python.</p>
+            </div>
+
+            <div class="card">
+                <h4>IntelliJ IDEA</h4>
+                <p>Популярная среда разработки, особенно в экосистеме Java и JVM.</p>
+            </div>
+
+            <div class="card">
+                <h4>Visual Studio Code</h4>
+                <p>Очень популярный редактор с расширениями, позволяющими превратить его в мощную среду разработки.</p>
+            </div>
+        </div>
+
+        <div class="important">
+            <div class="box-title">💡 ВАЖНО</div>
+            <p>
+                IDE не является языком программирования.
+                Например, Python — язык, а PyCharm — среда разработки,
+                в которой удобно писать программы на Python.
+            </p>
+        </div>
+
+        <div class="example">
+            <div class="box-title">🌱 ПРИМЕР ИЗ ЖИЗНИ</div>
+            <p>
+                Повар может работать только с ножом.
+                Но гораздо удобнее иметь целую кухню: нож, плиту, духовку,
+                холодильник и рабочую поверхность.
+            </p>
+            <p>
+                Программист тоже может писать код в простом текстовом редакторе,
+                но IDE объединяет множество инструментов в одном месте.
+            </p>
+        </div>
+
+        <div class="self-check">
+            <div class="box-title">✍️ ПРОВЕРЬТЕ СЕБЯ</div>
+            <ol>
+                <li>Что означает аббревиатура IDE?</li>
+                <li>Почему IDE можно сравнить с мастерской программиста?</li>
+            </ol>
+        </div>
+
+        <a class="back-top" href="#top">↑ Вернуться к оглавлению</a>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- ТЕМА 4 -->
+    <!-- ========================================================= -->
+
+    <section id="topic4">
+        <h2 class="section-title">4. ⚙️ Компиляторы и интерпретаторы</h2>
+
+        <div class="intro">
+            Представьте переводчика. Он может сначала полностью перевести книгу,
+            а потом выдать её читателю. А может переводить речь почти сразу,
+            предложение за предложением.
+            В программировании существуют похожие подходы: <strong>компиляция</strong>
+            и <strong>интерпретация</strong>.
+        </div>
+
+        <div class="definition">
+            <div class="box-title">📝 ЗАПИШИТЕ В ТЕТРАДЬ</div>
+            <p>
+                <strong>Компилятор</strong> — программа, которая переводит
+                исходный код программы в другую форму, обычно с последующим
+                получением выполняемого или промежуточного представления.
+            </p>
+            <p>
+                <strong>Интерпретатор</strong> — программа или механизм выполнения,
+                который читает исходный или промежуточный код и выполняет его
+                с использованием среды выполнения.
+            </p>
+        </div>
+
+        <h3 class="subhead">Главное различие</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Компилятор</th>
+                    <th>Интерпретатор</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Обычно сначала переводит программу в другое представление.</td>
+                    <td>Обычно выполняет программу в процессе её обработки.</td>
+                </tr>
+                <tr>
+                    <td>Может заранее обнаружить много ошибок в коде.</td>
+                    <td>Некоторые ошибки становятся заметны при достижении соответствующего места выполнения.</td>
+                </tr>
+                <tr>
+                    <td>После успешной компиляции программу можно запускать отдельно от исходного текста, если получен соответствующий исполняемый результат.</td>
+                    <td>Для выполнения может требоваться среда интерпретации или виртуальная машина.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="important">
+            <div class="box-title">⚠️ ВАЖНО</div>
+            <p>
+                В реальных современных языках граница между «компилируемым»
+                и «интерпретируемым» языком не всегда такая простая.
+                Многие системы используют несколько этапов: компиляцию,
+                промежуточный код, виртуальную машину и JIT-компиляцию.
+            </p>
+        </div>
+
+        <h3 class="subhead">Пример: Python</h3>
+
+        <p>
+            Python часто называют интерпретируемым языком.
+            На практике реализация CPython сначала переводит исходный код
+            в байт-код, а затем выполняет его виртуальной машиной Python.
+        </p>
+
+        <h3 class="subhead">Пример: C++</h3>
+
+        <p>
+            C++ обычно компилируется. Компилятор преобразует исходный код
+            в объектный код и затем программа связывается с библиотеками.
+        </p>
+
+        <pre><span class="com">// C++</span>
+<span class="kw">#include</span> &lt;iostream&gt;
+
+<span class="kw">int</span> main() {
+    std::cout &lt;&lt; <span class="str">"Hello!"</span>;
+    <span class="kw">return</span> <span class="num">0</span>;
+}</pre>
+
+        <h3 class="subhead">Пример: Pascal</h3>
+
+        <p>
+            Классический Pascal также относится к компилируемым языкам:
+            исходный текст переводится компилятором в форму,
+            пригодную для выполнения.
+        </p>
+
+        <div class="example">
+            <div class="box-title">🌱 ПРИМЕР ИЗ ЖИЗНИ</div>
+            <p>
+                Компилятор можно представить как переводчика, который получает
+                инструкцию, полностью переводит её и отдаёт готовую версию.
+            </p>
+            <p>
+                Интерпретатор больше похож на переводчика-синхрониста:
+                он помогает выполнять инструкции непосредственно в процессе работы.
+            </p>
+        </div>
+
+        <div class="self-check">
+            <div class="box-title">✍️ ПРОВЕРЬТЕ СЕБЯ</div>
+            <ol>
+                <li>В чём главное отличие компиляции от интерпретации?</li>
+                <li>Можно ли считать Python полностью «безкомпиляционным»? Почему ответ не такой простой?</li>
+            </ol>
+        </div>
+
+        <a class="back-top" href="#top">↑ Вернуться к оглавлению</a>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- ТЕМА 5 -->
+    <!-- ========================================================= -->
+
+    <section id="topic5">
+        <h2 class="section-title">5. 🔄 Жизненный цикл программы. Программа и программный продукт</h2>
+
+        <div class="intro">
+            Когда строят дом, не начинают с установки люстры.
+            Сначала определяют, что строить, делают проект, подбирают материалы,
+            строят, проверяют результат, а затем дом обслуживают.
+            <strong>С программами происходит очень похожий процесс.</strong>
+        </div>
+
+        <div class="definition">
+            <div class="box-title">📝 ЗАПИШИТЕ В ТЕТРАДЬ</div>
+            <p>
+                <strong>Программа</strong> — это последовательность команд,
+                записанная на языке программирования и предназначенная
+                для выполнения компьютером.
+            </p>
+            <p>
+                <strong>Программный продукт</strong> — это программное средство,
+                созданное для решения определённых задач пользователя
+                и сопровождаемое необходимыми компонентами и документацией.
+            </p>
+        </div>
+
+        <h3 class="subhead">Программа и программный продукт — не совсем одно и то же</h3>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Программа</th>
+                <th>Программный продукт</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>В первую очередь — код и выполняемые инструкции.</td>
+                <td>Программа + необходимые файлы, интерфейс, документация, настройки и другие компоненты.</td>
+            </tr>
+            <tr>
+                <td>Может быть очень маленькой.</td>
+                <td>Обычно рассчитан на реального пользователя и практическое применение.</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h3 class="subhead">Основные характеристики программного продукта</h3>
+
+        <div class="mini-grid">
+            <div class="card">
+                <h4>Функциональность</h4>
+                <p>Продукт должен выполнять необходимые пользователю функции.</p>
+            </div>
+            <div class="card">
+                <h4>Надёжность</h4>
+                <p>Программа должна работать стабильно и предсказуемо.</p>
+            </div>
+            <div class="card">
+                <h4>Удобство использования</h4>
+                <p>Пользователь должен понимать, как работать с системой.</p>
+            </div>
+            <div class="card">
+                <h4>Производительность</h4>
+                <p>Программа должна выполнять работу с приемлемой скоростью и расходом ресурсов.</p>
+            </div>
+            <div class="card">
+                <h4>Безопасность</h4>
+                <p>Программа должна защищать данные и ограничивать опасные действия.</p>
+            </div>
+            <div class="card">
+                <h4>Сопровождаемость</h4>
+                <p>Программу должно быть возможно исправлять и развивать.</p>
+            </div>
+        </div>
+
+        <h3 class="subhead">🔄 Жизненный цикл программы</h3>
+
+        <p>
+            Жизненный цикл — это путь программного продукта от возникновения идеи
+            до эксплуатации, обновлений и завершения использования.
+        </p>
+
+        <div class="scheme">
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>Анализ требований</strong>
+                <p>Определяем, что нужно пользователю и какую проблему решаем.</p>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>Проектирование</strong>
+                <p>Продумываем структуру будущей программы.</p>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>Разработка</strong>
+                <p>Пишем код и создаём необходимые компоненты.</p>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="step">
+                <span class="step-number">4</span>
+                <strong>Тестирование</strong>
+                <p>Проверяем, работает ли программа правильно.</p>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="step">
+                <span class="step-number">5</span>
+                <strong>Внедрение</strong>
+                <p>Продукт передают пользователям и вводят в эксплуатацию.</p>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="step">
+                <span class="step-number">6</span>
+                <strong>Сопровождение</strong>
+                <p>Исправляем ошибки, обновляем программу и добавляем новые возможности.</p>
+            </div>
+        </div>
+
+        <div class="important">
+            <div class="box-title">💡 ВАЖНО</div>
+            <p>
+                Жизненный цикл не заканчивается после написания кода.
+                Большая часть реальной работы над программным продуктом
+                связана с тестированием, исправлениями, обновлениями
+                и сопровождением.
+            </p>
+        </div>
+
+        <div class="example">
+            <div class="box-title">🌱 ПРИМЕР ИЗ ЖИЗНИ</div>
+            <p>
+                Представьте мобильное приложение для расписания колледжа.
+            </p>
+            <p>
+                Сначала кто-то замечает проблему:
+                «Студентам неудобно узнавать расписание».
+                Затем определяют требования, проектируют приложение,
+                программируют, тестируют, публикуют и позже исправляют ошибки
+                и добавляют новые функции.
+            </p>
+        </div>
+
+        <div class="self-check">
+            <div class="box-title">✍️ ПРОВЕРЬТЕ СЕБЯ</div>
+            <ol>
+                <li>Почему написание кода — не последний этап жизни программы?</li>
+                <li>Чем программа отличается от программного продукта?</li>
+            </ol>
+        </div>
+
+        <a class="back-top" href="#top">↑ Вернуться к оглавлению</a>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- ТЕМА 6 -->
+    <!-- ========================================================= -->
+
+    <section id="topic6">
+        <h2 class="section-title">6. 🧩 Основные этапы решения задач на компьютере</h2>
+
+        <div class="intro">
+            Прежде чем отправиться в путешествие, вы сначала решаете,
+            куда ехать, изучаете маршрут и только потом садитесь в машину.
+            Решение задачи на компьютере происходит похожим образом:
+            <strong>сначала думаем, потом записываем алгоритм, затем программируем.</strong>
+        </div>
+
+        <div class="definition">
+            <div class="box-title">📝 ЗАПИШИТЕ В ТЕТРАДЬ</div>
+            <p>
+                <strong>Алгоритм</strong> — это конечная последовательность
+                понятных и выполнимых действий, приводящая к решению задачи.
+            </p>
+        </div>
+
+        <h3 class="subhead">Схема решения задачи</h3>
+
+        <div class="horizontal-scheme">
+            <div class="h-step">1.<br>Постановка задачи</div>
+            <div class="h-step">2.<br>Анализ</div>
+            <div class="h-step">3.<br>Алгоритм</div>
+            <div class="h-step">4.<br>Программа</div>
+            <div class="h-step">5.<br>Проверка</div>
+        </div>
+
+        <p style="text-align:center;font-weight:800;font-size:22px;">
+            При необходимости: <strong>исправление → повторная проверка</strong>
+        </p>
+
+        <h3 class="subhead">1. Постановка задачи</h3>
+        <p>
+            Нужно точно понять, что требуется получить.
+        </p>
+
+        <div class="important">
+            <div class="box-title">❗ Главный вопрос</div>
+            <p>
+                <strong>Что дано?</strong> → <strong>Что нужно получить?</strong>
+            </p>
+        </div>
+
+        <h3 class="subhead">2. Анализ задачи</h3>
+        <p>
+            Определяем исходные данные, результат, ограничения,
+            необходимые формулы и зависимости.
+        </p>
+
+        <h3 class="subhead">3. Разработка алгоритма</h3>
+        <p>
+            Продумываем последовательность действий.
+            Алгоритм можно записать словами, псевдокодом или представить
+            в виде блок-схемы.
+        </p>
+
+        <h3 class="subhead">4. Программирование</h3>
+        <p>
+            Переводим алгоритм на конкретный язык программирования.
+        </p>
+
+        <h3 class="subhead">5. Тестирование и отладка</h3>
+        <p>
+            Проверяем программу на различных данных.
+            Если результат неверный — ищем и исправляем ошибку.
+        </p>
+
+        <h3 class="subhead">6. Использование решения</h3>
+        <p>
+            После проверки программу можно использовать для решения реальной задачи.
+        </p>
+
+        <pre><span class="com"># Небольшой пример: вычисление стоимости покупки</span>
+
+price = <span class="num">500</span>
+quantity = <span class="num">3</span>
+
+total = price * quantity
+
+print(total)</pre>
+
+        <p>
+            Перед написанием этого кода мы должны были сначала решить:
+            какие данные известны, что требуется вычислить и как получить результат.
+        </p>
+
+        <div class="example">
+            <div class="box-title">🌱 ПРИМЕР ИЗ ЖИЗНИ</div>
+            <p>
+                Допустим, вам нужно приготовить ужин для пяти человек.
+            </p>
+            <p>
+                Вы сначала решаете, <strong>что приготовить</strong>,
+                затем определяете необходимые продукты, составляете порядок действий,
+                готовите блюдо и пробуете результат.
+            </p>
+            <p>
+                Если суп пересолен — вы исправляете проблему.
+                Это и есть очень бытовая аналогия анализа, алгоритма,
+                выполнения и отладки.
+            </p>
+        </div>
+
+        <div class="self-check">
+            <div class="box-title">✍️ ПРОВЕРЬТЕ СЕБЯ</div>
+            <ol>
+                <li>Почему неправильно сразу начинать писать код, не разобравшись в задаче?</li>
+                <li>Что нужно делать, если программа выдаёт неправильный результат?</li>
+            </ol>
+        </div>
+
+        <a class="back-top" href="#top">↑ Вернуться к оглавлению</a>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- ТЕМА 7 -->
+    <!-- ========================================================= -->
+
+    <section id="topic7">
+        <h2 class="section-title">7. 🧱 Типы данных: простые, производные, структурированные</h2>
+
+        <div class="intro">
+            Представьте шкаф с вещами. Нельзя складывать обувь, документы,
+            книги и жидкость в одну и ту же коробку без правил.
+            Компьютеру тоже нужно знать, <strong>какие именно данные хранятся
+            и как с ними работать</strong>.
+        </div>
+
+        <div class="definition">
+            <div class="box-title">📝 ЗАПИШИТЕ В ТЕТРАДЬ</div>
+            <p>
+                <strong>Тип данных</strong> — это характеристика данных,
+                определяющая, какие значения они могут принимать,
+                сколько памяти занимают и какие операции над ними допустимы.
+            </p>
+        </div>
+
+        <h3 class="subhead">Зачем вообще нужны типы?</h3>
+
+        <p>
+            Если компьютер видит число, он понимает, что с ним можно выполнять
+            арифметические операции.
+        </p>
+
+        <p>
+            Если это строка, с ней выполняются другие операции:
+            объединение текста, поиск символов, сравнение и т. д.
+        </p>
+
+        <div class="mini-grid">
+            <div class="card">
+                <h4>Число</h4>
+                <p><code>25 + 10</code></p>
+            </div>
+
+            <div class="card">
+                <h4>Строка</h4>
+                <p><code>"25" + "10"</code> → текстовая операция, а не обычное сложение чисел.</p>
+            </div>
+        </div>
+
+        <h3 class="subhead">Основные группы типов данных</h3>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Группа</th>
+                <th>Что содержит</th>
+                <th>Примеры</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><strong>Простые</strong></td>
+                <td>Одно отдельное значение.</td>
+                <td>целое число, вещественное число, символ, логическое значение</td>
+            </tr>
+            <tr>
+                <td><strong>Производные</strong></td>
+                <td>Типы, построенные на основе других типов.</td>
+                <td>указатели, ссылки, некоторые производные конструкции конкретного языка</td>
+            </tr>
+            <tr>
+                <td><strong>Структурированные</strong></td>
+                <td>Объединяют несколько значений в одну структуру.</td>
+                <td>массив, запись/структура, список, множество</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h3 class="subhead">1. Простые типы</h3>
+
+        <p>
+            Простые типы представляют одно значение.
+        </p>
+
+        <table class="compact">
+            <thead>
+            <tr>
+                <th>Тип</th>
+                <th>Пример значения</th>
+                <th>Смысл</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Целый</td>
+                <td><code>15</code></td>
+                <td>Целое число без дробной части.</td>
+            </tr>
+            <tr>
+                <td>Вещественный</td>
+                <td><code>3.14</code></td>
+                <td>Число с дробной частью.</td>
+            </tr>
+            <tr>
+                <td>Символ</td>
+                <td><code>'A'</code></td>
+                <td>Один отдельный символ.</td>
+            </tr>
+            <tr>
+                <td>Логический</td>
+                <td><code>true / false</code></td>
+                <td>Истина или ложь.</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h3 class="subhead">2. Производные типы</h3>
+
+        <p>
+            Производный тип создаётся на основе другого типа или типов
+            и добавляет новые способы представления и работы с данными.
+        </p>
+
+        <p>
+            Например, в C++ можно создать ссылку или указатель
+            на существующий тип.
+        </p>
+
+        <pre><span class="kw">int</span> age = <span class="num">18</span>;
+
+<span class="kw">int</span>* ptr = &amp;age;</pre>
+
+        <p>
+            Здесь <code>int</code> — базовый тип,
+            а <code>int*</code> — указатель на значение типа <code>int</code>.
+        </p>
+
+        <div class="important">
+            <div class="box-title">💡 НЕ ПУТАЙТЕ</div>
+            <p>
+                Классификация типов может немного различаться между языками.
+                Поэтому всегда нужно учитывать конкретный язык программирования.
+                Например, Python использует динамическую типизацию,
+                а C++ и Pascal имеют более явно выраженную систему типов.
+            </p>
+        </div>
+
+        <h3 class="subhead">3. Структурированные типы</h3>
+
+        <p>
+            Структурированный тип объединяет несколько значений,
+            связанных между собой.
+        </p>
+
+        <h4 class="subhead" style="font-size:25px;">Массив</h4>
+
+        <p>
+            Массив позволяет хранить набор однотипных элементов.
+        </p>
+
+        <pre><span class="com">// C++</span>
+<span class="kw">int</span> numbers[<span class="num">5</span>] = {<span class="num">10</span>, <span class="num">20</span>, <span class="num">30</span>, <span class="num">40</span>, <span class="num">50</span>};</pre>
+
+        <h4 class="subhead" style="font-size:25px;">Запись / структура</h4>
+
+        <p>
+            Структура позволяет объединить разные по смыслу данные
+            в один объект.
+        </p>
+
+        <pre><span class="com">// C++</span>
+<span class="kw">struct</span> Student {
+    std::string name;
+    <span class="kw">int</span> age;
+};</pre>
+
+        <h4 class="subhead" style="font-size:25px;">Списки</h4>
+
+        <p>
+            Список — последовательность элементов, с которой можно выполнять
+            различные операции: добавление, удаление, поиск и т. д.
+        </p>
+
+        <pre><span class="com"># Python</span>
+students = [<span class="str">"Анна"</span>, <span class="str">"Иван"</span>, <span class="str">"Олег"</span>]</pre>
+
+        <h3 class="subhead">Сравним типы на простом примере</h3>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Что хотим хранить</th>
+                <th>Подходящий тип</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Возраст человека</td>
+                <td>Целое число</td>
+            </tr>
+            <tr>
+                <td>Средний балл</td>
+                <td>Вещественное число</td>
+            </tr>
+            <tr>
+                <td>Пол студента в форме одного символа</td>
+                <td>Символ</td>
+            </tr>
+            <tr>
+                <td>Сдан экзамен или нет</td>
+                <td>Логический тип</td>
+            </tr>
+            <tr>
+                <td>Список оценок</td>
+                <td>Массив / список</td>
+            </tr>
+            <tr>
+                <td>Информация о студенте</td>
+                <td>Структура / запись / объект</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="example">
+            <div class="box-title">🌱 ПРИМЕР ИЗ ЖИЗНИ</div>
+            <p>
+                Представьте анкету студента.
+            </p>
+            <p>
+                <strong>Возраст</strong> — одно число.<br>
+                <strong>Средний балл</strong> — число с дробной частью.<br>
+                <strong>Имя</strong> — текст.<br>
+                <strong>Есть ли задолженность?</strong> — да или нет.<br>
+                <strong>Список оценок</strong> — несколько связанных значений.<br>
+                <strong>Данные всего студента</strong> — целая структура.
+            </p>
+        </div>
+
+        <div class="self-check">
+            <div class="box-title">✍️ ПРОВЕРЬТЕ СЕБЯ</div>
+            <ol>
+                <li>Зачем компьютер должен знать тип данных?</li>
+                <li>Какой тип лучше использовать для хранения списка из нескольких оценок?</li>
+            </ol>
+        </div>
+
+        <a class="back-top" href="#top">↑ Вернуться к оглавлению</a>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- РЕЗЮМЕ -->
+    <!-- ========================================================= -->
+
+    <section id="summary">
+        <div class="footer-summary">
+            <h2 class="section-title" style="margin-bottom:20px;">📋 Краткое резюме лекции</h2>
+
+            <ol>
+                <li>
+                    <strong>Язык программирования</strong> — формальный язык
+                    для записи алгоритмов и программ.
+                </li>
+                <li>
+                    Языки программирования развивались от машинных кодов
+                    к языкам высокого уровня.
+                </li>
+                <li>
+                    Разные языки подходят для разных задач:
+                    Python, C++, Pascal, Java, JavaScript, C# и другие.
+                </li>
+                <li>
+                    <strong>Стандарт языка</strong> задаёт правила,
+                    которые описывают его конструкции и поведение.
+                </li>
+                <li>
+                    <strong>IDE</strong> — цифровая мастерская программиста,
+                    объединяющая редактор кода, запуск, отладку и другие инструменты.
+                </li>
+                <li>
+                    <strong>Компилятор</strong> переводит исходный код
+                    в другое представление, предназначенное для дальнейшего выполнения.
+                </li>
+                <li>
+                    <strong>Интерпретатор</strong> выполняет программу
+                    через механизм интерпретации во время работы.
+                </li>
+                <li>
+                    <strong>Программа</strong> — последовательность команд
+                    для компьютера, а программный продукт включает программу
+                    и необходимые пользователю компоненты.
+                </li>
+                <li>
+                    Жизненный цикл программы включает анализ требований,
+                    проектирование, разработку, тестирование, внедрение и сопровождение.
+                </li>
+                <li>
+                    Решение задачи начинается не с написания кода,
+                    а с понимания задачи и разработки алгоритма.
+                </li>
+                <li>
+                    <strong>Тип данных</strong> определяет, какие значения можно хранить
+                    и какие операции над ними допустимы.
+                </li>
+                <li>
+                    Типы данных можно рассматривать как простые, производные
+                    и структурированные; конкретная классификация зависит от языка.
+                </li>
+            </ol>
+        </div>
+
+        <a class="back-top" href="#top">↑ Вернуться к оглавлению</a>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- СЛОВАРЬ -->
+    <!-- ========================================================= -->
+
+    <section id="dictionary">
+        <h2 class="section-title">📝 Словарь терминов</h2>
+
+        <div style="background:white;border:2px solid #cbd5e1;border-radius:18px;overflow:hidden;">
+
+            <div class="dictionary-item">
+                <span class="term">Алгоритм</span> — конечная последовательность понятных и выполнимых действий для решения задачи.
+            </div>
+
+            <div class="dictionary-item">
+                <span class="term">Язык программирования</span> — формальный язык для записи алгоритмов и программ.
+            </div>
+
+            <div class="dictionary-item">
+                <span class="term">Машинный язык</span> — язык, инструкции которого представлены в форме, непосредственно связанной с машинными командами.
+            </div>
+
+            <div class="dictionary-item">
+                <span class="term">Ассемблер</span> — язык низкого уровня, использующий символьные обозначения машинных инструкций.
+            </div>
+
+            <div class="dictionary-item">
+                <span class="term">Язык высокого уровня</span> — язык, синтаксис и конструкции которого ориентированы на удобство человека.
+            </div>
+
+            <div class="dictionary-item">
+                <span class="term">Стандарт языка</span> — официальное описание правил языка, его конструкций и их поведения.
+            </div>
+
+            <div class="dictionary-item">
+                <span class="term">IDE</span> — интегрированная среда разработки, объединяющая инструменты создания программ.
+            </div>
+
+            <div class="dictionary-item">
+                <span class="term">Редактор кода</span> — инструмент для написания и изменения исходного кода.
+            </div>
+
+            <div class="dictionary-item">
+                <span class="term">Отладчик</span> — инструмент для поиска и анализа ошибок программы.
+            </div>
+
+            <div class="dictionary-item">
+                <span class="term">Компилятор</span> — программа, преобразующая исходный код в другое представление для дальнейшего выполнения.
+            </div>
+
+            <div class="dictionary-item">
+                <span class="term">Интерпретатор</span> — механизм или программа, выполняющая код во время его обработки.
+            </div>
+
+            <div class="dictionary-item">
+                <span class="term">Программа</span> — последовательность команд, предназначенная для выполнения компьютером.
+            </div>
+
+            <div class="dictionary-item">
+                <span class="term">Программный продукт</span> — программное средство для решения задач пользователя вместе с необходимыми компонентами.
+            </div>
+
+            <div class="dictionary-item">
+                <span class="term">Жизненный цикл программы</span> — совокупность этапов существования программного продукта от идеи до сопровождения и завершения использования.
+            </div>
+
+            <div class="dictionary-item">
+                <span class="term">Требования</span> — описание того, что должна делать программа и какие условия она должна выполнять.
+            </div>
+
+            <div class="dictionary-item">
+                <span class="term">Проектирование</span> — разработка структуры и устройства будущей программы.
+            </div>
+
+            <div class="dictionary-item">
+                <span class="term">Разработка</span> — создание программы, включая написание кода.
+            </div>
+
+            <div class="dictionary-item">
+                <span class="term">Тестирование</span> — проверка программы на правильность и соответствие требованиям.
+            </div>
+
+            <div class="dictionary-item">
+                <span class="term">Отладка</span> — поиск и исправление ошибок в программе.
+            </div>
+
+            <div class="dictionary-item">
+                <span class="term">Сопровождение</span> — исправление, обновление и развитие программы после выпуска.
+            </div>
+
+            <div class="dictionary-item">
+                <span class="term">Тип данных</span> — характеристика данных, определяющая допустимые значения и операции над ними.
+            </div>
+
+            <div class="dictionary-item">
+                <span class="term">Простой тип</span> — тип, представляющий одно отдельное значение.
+            </div>
+
+            <div class="dictionary-item">
+                <span class="term">Производный тип</span> — тип, построенный на основе другого типа или типов.
+            </div>
+
+            <div class="dictionary-item">
+                <span class="term">Структурированный тип</span> — тип, объединяющий несколько значений в одну структуру.
+            </div>
+
+            <div class="dictionary-item">
+                <span class="term">Массив</span> — структура данных для хранения набора элементов, обычно одного типа.
+            </div>
+
+            <div class="dictionary-item">
+                <span class="term">Структура / запись</span> — объединение нескольких связанных полей, которые могут иметь разные типы.
+            </div>
+
+            <div class="dictionary-item">
+                <span class="term">Логический тип</span> — тип, принимающий логические значения, например истина и ложь.
+            </div>
+
+            <div class="dictionary-item">
+                <span class="term">Целый тип</span> — тип для хранения целых чисел.
+            </div>
+
+            <div class="dictionary-item">
+                <span class="term">Вещественный тип</span> — тип для хранения чисел с дробной частью.
+            </div>
+
+            <div class="dictionary-item">
+                <span class="term">Символьный тип</span> — тип для хранения отдельного символа.
+            </div>
+
+            <div class="dictionary-item">
+                <span class="term">Строка</span> — последовательность символов, используемая для представления текста.
+            </div>
+
+        </div>
+
+        <a class="back-top" href="#top">↑ Вернуться к началу</a>
+    </section>
+
+    <div style="text-align:center;margin:70px 0 40px;">
+        <p style="font-size:27px;font-weight:800;">
+            🎯 Главное правило начинающего программиста:
+        </p>
+        <p style="font-size:25px;">
+            <strong>Сначала понять задачу → потом придумать алгоритм → потом писать код.</strong>
+        </p>
+    </div>
+
+</main>
+
+</body>
+</html>
